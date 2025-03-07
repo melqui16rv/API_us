@@ -4,8 +4,8 @@ import requests
 
 app = Flask(__name__)
 
-# Configuración para Railway
-port = os.getenv('PORT', 5000)
+# Configuración para Railway/Vercel
+port = int(os.getenv('PORT', 8080))  # Cambiado de 5000 a 8080
 BASE_URL = "https://www.colombiacompra.gov.co/clasificador"
 
 # Headers globales
@@ -114,6 +114,6 @@ def buscar_segmentos():
 
 if __name__ == '__main__':
     # Asegurarse de que el puerto sea un entero
-    port = int(os.getenv('PORT', 5000))
+    port = int(os.getenv('PORT', 8080))  # Cambiado de 5000 a 8080
     # Configuración para producción
     app.run(host='0.0.0.0', port=port)
