@@ -112,6 +112,82 @@ def buscar_segmentos():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/buscar', methods=['GET'])
+def buscar():
+    try:
+        item = request.args.get('item', '')
+        categoria = request.args.get('categoria', 'productos')
+        
+        # Mapeo de categorías a endpoints
+        endpoints = {
+            'productos': 'productos_code.json',
+            'clases': 'clases_code.json',
+            'familias': 'familias_code.json',
+            'segmentos': 'segmentos_code.json'
+        }
+        
+        # Mapeo de parámetros de búsqueda
+        param_names = {
+            'productos': 'combine_prod',
+            'clases': 'combine_clase',
+            'familias': 'combine_familia',
+            'segmentos': 'combine_segmento'
+        }
+        
+        if categoria not in endpoints:
+            return jsonify({'error': 'Categoría no válida'}), 400
+            
+        url = f"{BASE_URL}/{endpoints[categoria]}"
+        params = {
+            param_names[categoria]: item,
+            'page': '0'
+        }
+        
+        response = requests.get(url, headers=headers, cookies=cookies, params=params)
+        response.raise_for_status()
+        data = response.json()
+        
+        # Asegurarse de que la respuesta sea una lista
+        if isinstance(data, dict) and 'items' in data:
+            return jsonify(data['items'])
+        return jsonify(data)
+        
+    except requests.exceptions.RequestException as e:
+        return jsonify({'error': f'Error de conexión: {str(e)}'}), 500
+    except ValueError as e:
+        return jsonify({'error': f'Error al procesar JSON: {str(e)}'}), 500
+    except Exception as e:
+        return jsonify({'error': f'Error inesperado: {str(e)}'}), 500
+
+@app.route('/buscar_todo', methods=['GET'])
+def buscar_todo():
+    try:
+        item = request.args.get('item', '')
+        resultados = {}
+        
+        categorias = {
+            'productos': 'combine_prod',
+            'clases': 'combine_clase',
+            'familias': 'combine_familia',
+            'segmentos': 'combine_segmento'
+        }
+        
+        for categoria, param_name in categorias.items():
+            url = f"{BASE_URL}/{categoria}_code.json"
+            params = {param_name: item, 'page': '0'}
+            
+            try:
+                response = requests.get(url, headers=headers, cookies=cookies, params=params)
+                response.raise_for_status()
+                resultados[categoria] = response.json()
+            except:
+                resultados[categoria] = []
+                
+        return jsonify(resultados)
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == '__main__':
     # Asegurarse de que el puerto sea un entero
     port = int(os.getenv('PORT', 8080))  # Cambiado de 5000 a 8080
