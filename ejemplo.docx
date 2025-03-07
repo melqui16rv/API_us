@@ -1,0 +1,368 @@
+PETICIÓN 1----------:
+POST
+	
+scheme
+	https
+host
+	www.facebook.com
+filename
+	/tr/
+Dirección
+	163.70.152.35:443
+Estado
+200
+VersiónHTTP/3
+Transferido5,01 KB (tamaño 0 B)
+Política de referenciastrict-origin-when-cross-origin
+Prioridad de la solicitudLowest
+Resolución DNSSistema
+Bloqueo
+Protección contra rastreo mejorada
+Esta URL coincide con la de un rastreador conocido y se bloquearía si se activa el bloqueo de contenido.
+
+	
+access-control-allow-credentials
+	true
+access-control-allow-origin
+	https://www.colombiacompra.gov.co
+alt-svc
+	h3=":443"; ma=86400
+content-length
+	0
+content-type
+	text/plain
+cross-origin-resource-policy
+	cross-origin
+date
+	Fri, 07 Mar 2025 16:35:57 GMT
+priority
+	u=6
+server
+	proxygen-bolt
+strict-transport-security
+	max-age=31536000; includeSubDomains
+x-fb-connection-quality
+	EXCELLENT; q=0.9, rtt=9, rtx=0, c=24, mss=1232, tbw=5085, tp=9, tpl=0, uplat=0, ullat=0
+	
+Accept
+	*/*
+Accept-Encoding
+	gzip, deflate, br, zstd
+Accept-Language
+	es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3
+Alt-Used
+	www.facebook.com
+Connection
+	keep-alive
+Content-Length
+	3922
+Content-Type
+	multipart/form-data; boundary=----geckoformboundary9dcc1c1f0f55fe00eaa6db9c5db694e8
+Host
+	www.facebook.com
+Origin
+	https://www.colombiacompra.gov.co
+Priority
+	u=6
+Referer
+	https://www.colombiacompra.gov.co/
+Sec-Fetch-Dest
+	empty
+Sec-Fetch-Mode
+	no-cors
+Sec-Fetch-Site
+	cross-site
+TE
+	trailers
+User-Agent
+	Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0
+
+
+PETICIÓN 2----------:
+GET
+	
+scheme
+	https
+host
+	www.colombiacompra.gov.co
+filename
+	/clasificador/productos_code.json
+combine_prod
+	silla
+page
+	0
+Dirección
+	129.213.79.208:443
+Estado
+200
+OK
+VersiónHTTP/1.1
+Transferido4,51 KB (tamaño 4,04 KB)
+Política de referenciastrict-origin-when-cross-origin
+Prioridad de la solicitudHighest
+Resolución DNSSistema
+
+	
+Cache-Control
+	public, max-age=86400
+Connection
+	keep-alive
+Content-Type
+	application/json; charset=utf-8
+Date
+	Fri, 07 Mar 2025 16:35:57 GMT
+Etag
+	"1741357250-0"
+Expires
+	Sun, 19 Nov 1978 05:00:00 GMT
+Last-Modified
+	Fri, 07 Mar 2025 14:20:50 GMT
+Strict-Transport-Security
+	max-age=31536000; includeSubDomains
+Transfer-Encoding
+	chunked
+Vary
+	Cookie
+X-Content-Type-Options
+	nosniff
+X-Drupal-Cache
+	HIT
+X-Frame-Options
+	SAMEORIGIN
+	
+Accept
+	application/json, text/plain, */*
+Accept-Encoding
+	gzip, deflate, br, zstd
+Accept-Language
+	es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3
+Connection
+	keep-alive
+Cookie
+	has_js=1; _ga=GA1.3.1334865225.1741357431; _gid=GA1.3.713288181.1741357431; _ga_9ELSKQF488=GS1.3.1741365345.3.0.1741365345.60.0.0; _ga_6B7EM2S9HE=GS1.3.1741365345.3.0.1741365345.0.0.0; _fbp=fb.2.1741357432475.874066690923338085; _gat=1; _gat_UA-152913244-1=1
+Host
+	www.colombiacompra.gov.co
+Priority
+	u=0
+Referer
+	https://www.colombiacompra.gov.co/clasificador-de-bienes-y-servicios
+Sec-Fetch-Dest
+	empty
+Sec-Fetch-Mode
+	cors
+Sec-Fetch-Site
+	same-origin
+User-Agent
+	Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0
+
+PETICIÓN 3----------:
+GET
+	https://www.colombiacompra.gov.co/clasificador/clases_code.json?combine_clase=silla&page=0
+Estado
+200
+OK
+VersiónHTTP/1.1
+Transferido867 B (tamaño 405 B)
+Política de referenciastrict-origin-when-cross-origin
+Prioridad de la solicitudHighest
+Resolución DNSSistema
+
+	
+Cache-Control
+	public, max-age=86400
+Connection
+	keep-alive
+Content-Type
+	application/json; charset=utf-8
+Date
+	Fri, 07 Mar 2025 16:35:57 GMT
+Etag
+	"1741357250-0"
+Expires
+	Sun, 19 Nov 1978 05:00:00 GMT
+Last-Modified
+	Fri, 07 Mar 2025 14:20:50 GMT
+Strict-Transport-Security
+	max-age=31536000; includeSubDomains
+Transfer-Encoding
+	chunked
+Vary
+	Cookie
+X-Content-Type-Options
+	nosniff
+X-Drupal-Cache
+	HIT
+X-Frame-Options
+	SAMEORIGIN
+	
+Accept
+	application/json, text/plain, */*
+Accept-Encoding
+	gzip, deflate, br, zstd
+Accept-Language
+	es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3
+Connection
+	keep-alive
+Cookie
+	has_js=1; _ga=GA1.3.1334865225.1741357431; _gid=GA1.3.713288181.1741357431; _ga_9ELSKQF488=GS1.3.1741365345.3.0.1741365345.60.0.0; _ga_6B7EM2S9HE=GS1.3.1741365345.3.0.1741365345.0.0.0; _fbp=fb.2.1741357432475.874066690923338085; _gat=1; _gat_UA-152913244-1=1
+Host
+	www.colombiacompra.gov.co
+Priority
+	u=0
+Referer
+	https://www.colombiacompra.gov.co/clasificador-de-bienes-y-servicios
+Sec-Fetch-Dest
+	empty
+Sec-Fetch-Mode
+	cors
+Sec-Fetch-Site
+	same-origin
+User-Agent
+	Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0
+
+PETICIÓN 4--------------------:
+GET
+	https://www.colombiacompra.gov.co/clasificador/familias_code.json?combine_familia=silla&page=0
+Estado
+200
+OK
+VersiónHTTP/1.1
+Transferido875 B (tamaño 413 B)
+Política de referenciastrict-origin-when-cross-origin
+Prioridad de la solicitudHighest
+Resolución DNSSistema
+
+	
+Cache-Control
+	public, max-age=86400
+Connection
+	keep-alive
+Content-Type
+	application/json; charset=utf-8
+Date
+	Fri, 07 Mar 2025 16:35:57 GMT
+Etag
+	"1741357250-0"
+Expires
+	Sun, 19 Nov 1978 05:00:00 GMT
+Last-Modified
+	Fri, 07 Mar 2025 14:20:50 GMT
+Strict-Transport-Security
+	max-age=31536000; includeSubDomains
+Transfer-Encoding
+	chunked
+Vary
+	Cookie
+X-Content-Type-Options
+	nosniff
+X-Drupal-Cache
+	HIT
+X-Frame-Options
+	SAMEORIGIN
+	
+Accept
+	application/json, text/plain, */*
+Accept-Encoding
+	gzip, deflate, br, zstd
+Accept-Language
+	es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3
+Connection
+	keep-alive
+Cookie
+	has_js=1; _ga=GA1.3.1334865225.1741357431; _gid=GA1.3.713288181.1741357431; _ga_9ELSKQF488=GS1.3.1741365345.3.0.1741365345.60.0.0; _ga_6B7EM2S9HE=GS1.3.1741365345.3.0.1741365345.0.0.0; _fbp=fb.2.1741357432475.874066690923338085; _gat=1; _gat_UA-152913244-1=1
+Host
+	www.colombiacompra.gov.co
+If-None-Match
+	"1741357250-0"
+Priority
+	u=0
+Referer
+	https://www.colombiacompra.gov.co/clasificador-de-bienes-y-servicios
+Sec-Fetch-Dest
+	empty
+Sec-Fetch-Mode
+	cors
+Sec-Fetch-Site
+	same-origin
+User-Agent
+	Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0
+
+
+PETICIÓN 5-----.:
+GET
+	
+scheme
+	https
+host
+	www.colombiacompra.gov.co
+filename
+	/clasificador/segmentos_code.json
+combine_segmento
+	silla
+page
+	0
+Dirección
+	129.213.79.208:443
+Estado
+200
+OK
+VersiónHTTP/1.1
+Transferido879 B (tamaño 417 B)
+Política de referenciastrict-origin-when-cross-origin
+Prioridad de la solicitudHighest
+Resolución DNSSistema
+
+	
+Cache-Control
+	public, max-age=86400
+Connection
+	keep-alive
+Content-Type
+	application/json; charset=utf-8
+Date
+	Fri, 07 Mar 2025 16:35:57 GMT
+Etag
+	"1741357250-0"
+Expires
+	Sun, 19 Nov 1978 05:00:00 GMT
+Last-Modified
+	Fri, 07 Mar 2025 14:20:50 GMT
+Strict-Transport-Security
+	max-age=31536000; includeSubDomains
+Transfer-Encoding
+	chunked
+Vary
+	Cookie
+X-Content-Type-Options
+	nosniff
+X-Drupal-Cache
+	HIT
+X-Frame-Options
+	SAMEORIGIN
+	
+Accept
+	application/json, text/plain, */*
+Accept-Encoding
+	gzip, deflate, br, zstd
+Accept-Language
+	es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3
+Connection
+	keep-alive
+Cookie
+	has_js=1; _ga=GA1.3.1334865225.1741357431; _gid=GA1.3.713288181.1741357431; _ga_9ELSKQF488=GS1.3.1741365345.3.0.1741365345.60.0.0; _ga_6B7EM2S9HE=GS1.3.1741365345.3.0.1741365345.0.0.0; _fbp=fb.2.1741357432475.874066690923338085; _gat=1; _gat_UA-152913244-1=1
+Host
+	www.colombiacompra.gov.co
+If-None-Match
+	"1741357250-0"
+Priority
+	u=0
+Referer
+	https://www.colombiacompra.gov.co/clasificador-de-bienes-y-servicios
+Sec-Fetch-Dest
+	empty
+Sec-Fetch-Mode
+	cors
+Sec-Fetch-Site
+	same-origin
+User-Agent
+	Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0

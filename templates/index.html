@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Buscador Colombia Compra</title>
+    <style>
+        .item-detalle {
+            border: 1px solid #ccc;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        .codigo {
+            color: #666;
+            font-family: monospace;
+        }
+        .etiqueta {
+            font-weight: bold;
+            color: #333;
+        }
+        .buscador-segmentos {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        select {
+            padding: 5px;
+            margin-right: 10px;
+            min-width: 200px;
+        }
+        /* Estilos para la tabla */
+        .resultado-tabla {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        
+        .resultado-tabla th,
+        .resultado-tabla td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .resultado-tabla th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+        
+        .resultado-tabla tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        
+        .resultado-tabla tr:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Buscador Colombia Compra Eficiente</h1>
+    
+    <!-- Nuevo Buscador por Segmentos -->
+    <div class="buscador-segmentos">
+        <h2>Búsqueda por Segmentos</h2>
+        <div>
+            <select id="segmentos" onchange="actualizarBusqueda()">
+                <option value="">Cargando segmentos...</option>
+            </select>
+            <input type="text" id="item_segmento" placeholder="Ingrese el item a buscar">
+            <button onclick="buscarPorSegmento()">Buscar</button>
+        </div>
+        <div id="resultados_segmento"></div>
+    </div>
+
+    <!-- Buscador Original -->
+    <div style="margin-bottom: 40px;"></div>
+        <h2>Búsqueda por Categoría</h2>
+        <div>
+            <input type="text" id="item" placeholder="Ingrese el item a buscar">
+            <select id="categoria">
+                <option value="productos">Productos</option>
+                <option value="segmentos">Segmentos</option>
+                <option value="familias">Familias</option>
+                <option value="clases">Clases</option>
+            </select>
+            <button onclick="buscar()">Buscar</button>
+        </div>
+        <div id="resultados"></div>
+    </div>
+
+    <!-- Nuevo Buscador Unificado -->
+    <div style="margin-bottom: 40px; padding-top: 20px; border-top: 2px solid #ccc;">
+        <h2>Búsqueda en Todas las Categorías</h2>
+        <div>
+            <input type="text" id="item_todo" placeholder="Ingrese el item a buscar">
+            <button onclick="buscarTodo()">Buscar en Todo</button>
+        </div>
+        <div id="resultados_todo"></div>
+    </div>
+
+    <script>
+        // Cargar segmentos al iniciar la página
+        window.onload = function() {
+            cargarSegmentos();
+        };
+
+        function cargarSegmentos() {
+            fetch('/obtener_segmentos')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const selectSegmentos = document.getElementById('segmentos');
+                    selectSegmentos.innerHTML = '';
+                    
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+                    
+                    data.forEach(segmento => {
+                        const option = document.createElement('option');
+                        option.value = segmento.cod_segmento;
+                        option.textContent = `${segmento.cod_segmento} - ${segmento.nom_segmento}`;
+                        selectSegmentos.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error cargando segmentos:', error);
+                    const selectSegmentos = document.getElementById('segmentos');
+                    selectSegmentos.innerHTML = '<option value="">Error cargando segmentos</option>';
+                });
+        }
+
+        function mostrarResultadosEnTabla(data, contenedor) {
+            if (!Array.isArray(data) || data.length === 0) {
+                contenedor.innerHTML += '<p>No se encontraron resultados</p>';
+                return;
+            }
+
+            const tabla = `
+                <table class="resultado-tabla">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Producto</th>
+                            <th>Clase</th>
+                            <th>Familia</th>
+                            <th>Segmento</th>
+                            <th>Grupo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.map(item => `
+                            <tr>
+                                <td>
+                                    <span class="codigo">${item.cod_prod || 'N/A'}</span>
+                                </td>
+                                <td>${item.nom_prod || 'N/A'}</td>
+                                <td>
+                                    <span class="codigo">${item.cod_clase || 'N/A'}</span><br>
+                                    ${item.nom_clase || 'N/A'}
+                                </td>
+                                <td>
+                                    <span class="codigo">${item.cod_familia || 'N/A'}</span><br>
+                                    ${item.nom_familia || 'N/A'}
+                                </td>
+                                <td>
+                                    <span class="codigo">${item.cod_segmento || 'N/A'}</span><br>
+                                    ${item.nom_segmento || 'N/A'}
+                                </td>
+                                <td>
+                                    <span class="codigo">${item.cod_grupo || 'N/A'}</span><br>
+                                    ${item.nom_grupo || 'N/A'}
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            contenedor.innerHTML += tabla;
+        }
+
+        function buscarPorSegmento() {
+            const item = document.getElementById('item_segmento').value;
+            const segmento = document.getElementById('segmentos').value;
+            const resultadosDiv = document.getElementById('resultados_segmento');
+            
+            resultadosDiv.innerHTML = '<p>Buscando...</p>';
+            
+            fetch(`/buscar_por_segmento?item=${encodeURIComponent(item)}&segmento=${segmento}`)
+                .then(response => response.json())
+                .then(data => {
+                    resultadosDiv.innerHTML = '<h3>Resultados:</h3>';
+                    
+                    if (data.error) {
+                        resultadosDiv.innerHTML += `<p>Error: ${data.error}</p>`;
+                        return;
+                    }
+
+                    mostrarResultadosEnTabla(data, resultadosDiv);
+
+                    // Mostrar datos para desarrolladores
+                    resultadosDiv.innerHTML += `
+                        <div style="margin-top: 20px">
+                            <h3>Datos completos (Para desarrolladores):</h3>
+                            <pre style="background-color: #f0f0f0; padding: 10px; overflow-x: auto;">
+                                ${JSON.stringify(data, null, 2)}
+                            </pre>
+                        </div>
+                    `;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    resultadosDiv.innerHTML = `<p style="color: red">Error: ${error.message}</p>`;
+                });
+        }
+
+        function buscar() {
+            const item = document.getElementById('item').value;
+            const categoria = document.getElementById('categoria').value;
+            const resultadosDiv = document.getElementById('resultados');
+            
+            resultadosDiv.innerHTML = '<p>Buscando...</p>';
+            
+            fetch(`/buscar?item=${encodeURIComponent(item)}&categoria=${categoria}`)
+                .then(response => response.json())
+                .then(data => {
+                    resultadosDiv.innerHTML = '<h2>Resultados:</h2>';
+                    console.log('Datos recibidos:', data);
+
+                    if (data.error) {
+                        resultadosDiv.innerHTML += `<p>Error del servidor: ${data.error}</p>`;
+                        return;
+                    }
+
+                    const items = Array.isArray(data) ? data : data.items;
+                    mostrarResultadosEnTabla(items, resultadosDiv);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    resultadosDiv.innerHTML = `
+                        <p>Error al realizar la búsqueda:</p>
+                        <p style="color: red">${error.message}</p>
+                    `;
+                });
+        }
+
+        function buscarTodo() {
+            const item = document.getElementById('item_todo').value;
+            const resultadosDiv = document.getElementById('resultados_todo');
+            
+            resultadosDiv.innerHTML = '<p>Buscando en todas las categorías...</p>';
+            
+            fetch(`/buscar_todo?item=${encodeURIComponent(item)}`)
+                .then(response => response.json())
+                .then(data => {
+                    resultadosDiv.innerHTML = '<h2>Resultados en Todas las Categorías:</h2>';
+                    
+                    if (data.error) {
+                        resultadosDiv.innerHTML += `<p>Error: ${data.error}</p>`;  // Corregida comilla
+                        return;
+                    }
+
+                    if (!data || Object.keys(data).length === 0) {  // Mejor validación
+                        resultadosDiv.innerHTML += '<p>No se encontraron resultados</p>';
+                        return;
+                    }
+
+                    // Recorrer cada categoría
+                    for (const [categoria, items] of Object.entries(data)) {
+                        const categoriaTitulo = categoria.charAt(0).toUpperCase() + categoria.slice(1);
+                        
+                        let categoriaHTML = `
+                            <div class="item-detalle">
+                                <h3>${categoriaTitulo}</h3>
+                                <div style="max-height: 300px; overflow-y: auto;">
+                        `;
+
+                        if (Array.isArray(items) && items.length > 0) {
+                            items.forEach(item => {
+                                categoriaHTML += `
+                                    <div style="margin-bottom: 15px; padding: 10px; background-color: #fff;">
+                                        ${item.cod_prod ? `
+                                            <p><span class="etiqueta">Producto:</span> 
+                                            <span class="codigo">${item.cod_prod}</span> - ${item.nom_prod || ''}</p>
+                                        ` : ''}
+                                        
+                                        ${item.cod_clase ? `
+                                            <p><span class="etiqueta">Clase:</span> 
+                                            <span class="codigo">${item.cod_clase}</span> - ${item.nom_clase || ''}</p>
+                                        ` : ''}
+                                        
+                                        ${item.cod_familia ? `
+                                            <p><span class="etiqueta">Familia:</span> 
+                                            <span class="codigo">${item.cod_familia}</span> - ${item.nom_familia || ''}</p>
+                                        ` : ''}
+                                        
+                                        ${item.cod_segmento ? `
+                                            <p><span class="etiqueta">Segmento:</span> 
+                                            <span class="codigo">${item.cod_segmento}</span> - ${item.nom_segmento || ''}</p>
+                                        ` : ''}
+                                        
+                                        ${item.cod_grupo ? `
+                                            <p><span class="etiqueta">Grupo:</span> 
+                                            <span class="codigo">${item.cod_grupo}</span> - ${item.nom_grupo || ''}</p>
+                                        ` : ''}
+                                    </div>
+                                `;
+                            });
+                        } else {
+                            categoriaHTML += '<p>No se encontraron resultados en esta categoría</p>';
+                        }
+
+                        categoriaHTML += `
+                                </div>
+                            </div>
+                        `;
+                        
+                        resultadosDiv.innerHTML += categoriaHTML;
+                    }
+
+                    // Agregar datos completos para desarrolladores
+                    resultadosDiv.innerHTML += `
+                        <div style="margin-top: 20px">
+                            <h3>Datos completos (Para desarrolladores):</h3>
+                            <pre style="background-color: #f0f0f0; padding: 10px; overflow-x: auto;">
+                                ${JSON.stringify(data, null, 2)}
+                            </pre>
+                        </div>
+                    `;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    resultadosDiv.innerHTML = `
+                        <p>Error al realizar la búsqueda:</p>
+                        <p style="color: red">${error.message}</p>
+                    `;
+                });
+        }
+    </script>
+</body>
+</html>
